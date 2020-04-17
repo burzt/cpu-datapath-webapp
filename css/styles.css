@@ -28,10 +28,22 @@ svg #datapaths {
     animation-name: animateDatapath;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    
 }
 
 @keyframes animateDatapath {
+    from {
+        -webkit-transform: translate(0px,0px);
+        transform: translate(0px,0px);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate(50px,-50px);
+        transform: translate(50px,-50px);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes animateDatapath {
     from {
         -webkit-transform: translate(0px,0px);
         transform: translate(0px,0px);
