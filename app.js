@@ -19,6 +19,7 @@ class Line extends PIXI.Graphics {
 
         this.moveTo(points[0], points[1]);
         this.lineTo(points[2], points[3]);
+        rootStage.addChild(this);
     }
     
     updatePoints(p) {
@@ -41,7 +42,9 @@ rootStage.addChild(line);
 renderer.render(rootStage);
 
 window.addEventListener("mousemove", e => line.updatePoints([null, null, e.clientX, e.clientY]), false);
-window.addEventListener("click", e => line.updatePoints([e.clientX, e.clientY, null, null]), false);
+window.addEventListener("pointerdown", e => line.updatePoints([e.clientX, e.clientY, null, null]), false);
+window.addEventListener("pointerup", e => line =new Line([e.clientX, e.clientY, null, null]), false);
+
 
 
 
