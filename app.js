@@ -41,5 +41,7 @@ rootStage.addChild(line);
 renderer.render(rootStage);
 
 window.addEventListener("mousemove", e => line.updatePoints([null, null, e.clientX, e.clientY]), false);
+window.addEventListener("click", e => line.updatePoints([e.clientX, e.clientY, null, null]), false);
+
 
 
