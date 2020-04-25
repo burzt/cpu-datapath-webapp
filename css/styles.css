@@ -25,10 +25,5 @@
     display: inline-block;
     float: none
   }
-  .navbar.navbar-default .navbar-nav.navbar-center > li > a {
-    line-height: 4;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
-  }
+
 }
