@@ -1,4 +1,4 @@
-function init() {
+function loadInstruction() {
   var $ = go.GraphObject.make;
   myDiagram = $(go.Diagram, "myDiagramDiv")
 
@@ -10,7 +10,8 @@ function init() {
         // register
         $(go.Shape, "RoundedRectangle", {
           fill: "lightblue",
-          desiredSize: new go.Size(100, 150)
+          desiredSize: new go.Size(100, 150),
+          //initialDocumentSpot: go.Spot.TopCenter
         }),
         $(go.TextBlock, { margin: 10 },
           new go.Binding("text", "key")
@@ -98,4 +99,22 @@ function init() {
 
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
+  initialDocumentSpot: go.Spot.TopCenter; // may work, idk
 }
+
+function addInstruction() {
+  var $ = go.GraphObject.make;
+  diagram.add(
+    $(go.Node, "Auto",
+      $(go.Shape, "RoundedRectangle", { fill: "lightblue" }),
+      $(go.TextBlock, "Hello!", { margin: 5 })
+    ));
+}
+
+function storeInstruction() {
+
+}
+
+function reloadThePage(){
+  window.location.reload();
+} 
