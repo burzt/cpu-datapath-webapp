@@ -24,7 +24,7 @@ function loadInstruction() {
           // puts readreg1 top left
           alignment: new go.Spot(0, 0, 0, 30),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-          portId: "l", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          portId: "readreg1", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
           fromLinkable: false, toLinkable: true
         }
       ),
@@ -35,7 +35,7 @@ function loadInstruction() {
           // puts readreg1 top left
           alignment: new go.Spot(0, 0, 0, 60),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-          portId: "l", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          portId: "readreg2", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
           fromLinkable: false, toLinkable: true
         }
       ),
@@ -46,7 +46,7 @@ function loadInstruction() {
           // puts readreg1 top left
           alignment: new go.Spot(0, 0, 0, 90),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-          portId: "l", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          portId: "writereg", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
           fromLinkable: false, toLinkable: true
         }
       ),
@@ -57,7 +57,7 @@ function loadInstruction() {
           // puts readreg1 top left
           alignment: new go.Spot(0, 0, 0, 120),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-          portId: "l", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          portId: "writedata", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
           fromLinkable: false, toLinkable: true
         }
       ),
@@ -67,7 +67,7 @@ function loadInstruction() {
           fill: "green",
           alignment: new go.Spot(1, 0, 0, 45),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-          portId: "r", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          portId: "readdata1", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
           fromLinkable: true, toLinkable: false
         }
       ),
@@ -77,7 +77,7 @@ function loadInstruction() {
           fill: "green",
           alignment: new go.Spot(1, 0, 0, 105),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-          portId: "r", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          portId: "readdata2", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
           fromLinkable: true, toLinkable: false
         }
       ),
