@@ -104,11 +104,27 @@ function loadInstruction() {
 
 function addInstruction() {
   var $ = go.GraphObject.make;
-  diagram.add(
-    $(go.Node, "Auto",
-      $(go.Shape, "RoundedRectangle", { fill: "lightblue" }),
-      $(go.TextBlock, "Hello!", { margin: 5 })
-    ));
+  myDiagram = $(go.Diagram, "myDiagramDiv")
+
+
+  myDiagram.nodeTemplate =
+  $(go.Node, "Spot",
+  $(go.Panel, "Auto",
+    // register
+    $(go.Shape, "RoundedRectangle", {
+      fill: "lightblue",
+      desiredSize: new go.Size(100, 150),
+      //initialDocumentSpot: go.Spot.TopCenter
+    }),
+    $(go.TextBlock, { margin: 10 },
+      new go.Binding("text", "key")
+    ),
+    myDiagram.model = new go.GraphLinksModel(
+      [
+        { key: "Register" },
+        { key: "Beta" },
+      ],
+  )));
 }
 
 function storeInstruction() {
@@ -116,5 +132,5 @@ function storeInstruction() {
 }
 
 function reloadThePage(){
-  window.location.reload();
+  myDiagram.div = null;
 } 
