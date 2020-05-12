@@ -15,17 +15,26 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-      </div>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>    
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav ">
+          <li><a href="index.html"><i class="fa fa-fw fa-microchip"></i>CPU Datapath Simulator</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-center">
-        <a class="navbar-brand" href="index.html"><i class="fa fa-fw fa-microchip"></i>CPU Datapath Simulator</a>
-        <li class="list-group-item-danger"><a href="#" onClick="reloadThePage()">Reset Board</a></li>
-        <li><a href="#" onclick="addInstruction()">Add/Subtract</a></li>
-        <li><a href="#" onclick="loadInstruction()">Load</a></li>
-        <li><a href="#" onclick="storeInstruction()">Store</a></li>
-        <li><a href="https://github.com/AaronElam/cpu-datapath-webapp"><i class="fa fa-fw fa-github"></i>GitHub</a></li>
+        <li class="list-group-item-danger"><a href="#" onClick="refreshDiagram()">Reset Board</a></li>
+          <li><a id='add' href="#" onclick="addInstruction();">Add/Subtract</a></li>
+          <li><a id='load' href="#" onclick="loadInstruction();">Load</a></li>
+        <li><a id='store' href="#" onclick="storeInstruction()">Store</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="https://github.com/AaronElam/cpu-datapath-webapp"><i class="fa fa-fw fa-github"></i>GitHub</a></li>
       </ul>
     </div>
   </nav>
@@ -33,7 +42,7 @@
   <div class="container">
     <h3>How to use:</h3>
     <p>Click and drag to make connections between CPU components.
-    <br>Incorrect connections will not be drawn. Use <kbd class="keybd">Ctrl</kbd> + <kbd class="keybd">Z</kbd> to undo.<br><i>Warning</i>: For now, you have to click <b>Reset Board</b> if you want to switch between instructions.</p>
+    <br>Incorrect connections will not be drawn. Use <kbd class="keybd">Ctrl</kbd> + <kbd class="keybd">Z</kbd> to undo.
   <div id="myDiagramDiv" style="width: 900px; height: 600px; border: 1px solid black;"></div>
 </div>
 </body>

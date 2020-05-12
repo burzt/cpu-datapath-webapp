@@ -278,6 +278,11 @@ var alutemplate =
 
 
 function loadInstruction() {
+  // Allows clicking of page elements to refresh page and go to function.
+  document.getElementById('load').onclick = function () {
+    refreshDiagram();
+    loadInstruction();
+  };
   var $ = go.GraphObject.make;
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
@@ -293,8 +298,86 @@ function loadInstruction() {
     "undoManager.isEnabled": true
   });
 
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  templmap.add("register", registertemplate);
+  templmap.add("im", imtemplate);
+  templmap.add("signextend", signextendtemplate);
+  templmap.add("datamemory", datamemorytemplate);
+  templmap.add("alu", alutemplate);
+  myDiagram.nodeTemplateMap = templmap;
 
+  myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "Register", category: "register", loc: new go.Point(-400, 50) },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50) },
+      { key: "SE", category: "signextend", loc: new go.Point(-300, 250) },
+      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50) },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
+    ],
+  );
+  myDiagram.model.linkFromPortIdProperty = "fromPort";
+  myDiagram.model.linkToPortIdProperty = "toPort";
+  initialDocumentSpot: go.Spot.TopCenter; // may work, idk
+}
 
+function addInstruction() {
+  document.getElementById('add').onclick = function () {
+    refreshDiagram();
+    addInstruction();
+  };
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    allowHorizontalScroll: false,
+    allowVerticalScroll: false,
+    allowZoom: false,
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
+
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  templmap.add("register", registertemplate);
+  templmap.add("im", imtemplate);
+  templmap.add("alu", alutemplate);
+  myDiagram.nodeTemplateMap = templmap;
+
+  myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "Register", category: "register", loc: new go.Point(-400, 50) },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50) },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
+    ],
+  );
+  myDiagram.model.linkFromPortIdProperty = "fromPort";
+  myDiagram.model.linkToPortIdProperty = "toPort";
+}
+
+function storeInstruction() {
+  document.getElementById('store').onclick = function () {
+    refreshDiagram();
+    storeInstruction();
+  };
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    allowHorizontalScroll: false,
+    allowVerticalScroll: false,
+    allowZoom: false,
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
 
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
@@ -308,53 +391,17 @@ function loadInstruction() {
   myDiagram.model = new go.GraphLinksModel(
     [
       { key: "Register", category: "register", loc: new go.Point(-400, 50) },
-      { key: "IM", category: "im", loc: new go.Point(-600, 50)},
+      { key: "IM", category: "im", loc: new go.Point(-600, 50) },
       { key: "SE", category: "signextend", loc: new go.Point(-300, 250) },
-      { key: "DM", category: "datamemory",loc: new go.Point(-0, 50) },
+      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50) },
       { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
     ],
   );
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
-  initialDocumentSpot: go.Spot.TopCenter; // may work, idk
-
-  // enable Ctrl+Z to undo and Ctrl-Y to redo
 }
 
-function addInstruction() {
-  myDiagram = $(go.Diagram, "myDiagramDiv")
-
-  myDiagram.nodeTemplate =
-    $(go.Node, "Position",
-      $(go.Shape, "RoundedRectangle",
-        new go.Binding("fill", "color")),
-      $(go.TextBlock,
-        { margin: 8 },
-        { alignment: new go.Spot(0, 0) },
-        new go.Binding("text", "key"))
-    );
-
-  myDiagram.model = new go.GraphLinksModel(
-    [
-      { key: "Alpha", color: "orange" },
-      { key: "Beta", color: "lime" },
-      { key: "Charlie", color: "brown" },
-    ],
-    [
-      { to: "Charlie", from: "Alpha" }
-    ]
-  )
-
-
-  // enable Ctrl+Z to undo and Ctrl-Y to redo
-  myDiagram.undoManager.isEnabled = true;
-}
-
-function storeInstruction() {
-
-}
-
-function reloadThePage() {
+function refreshDiagram() {
   myDiagram.div = null;
 }
 

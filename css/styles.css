@@ -1,29 +1,7 @@
-.navbar.navbar-default {
-  background: #F5F5F5;
-}
-.navbar.navbar-default .navbar-nav.navbar-center > li > a,
-.navbar.navbar-default .navbar-search > li > a {
-  color: #266080;
-}
-@media (max-width: 767px) {
-  .navbar.navbar-default {
-    padding: 15px 0;
-  }
-  .navbar.navbar-default .navbar-collapse {
-    margin-top: 15px;
-    margin-bottom: -15px;
-    border: 0;
-    box-shadow: none;
-  }
-}
 @media (min-width: 768px) {
-  .navbar.navbar-default {} .navbar.navbar-default .navbar-nav.navbar-center {
-    width: 100%;
-    text-align: center;
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
   }
-  .navbar.navbar-default .navbar-nav.navbar-center > li {
-    display: inline-block;
-    float: none
-  }
-
 }
