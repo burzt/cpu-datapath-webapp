@@ -94,40 +94,144 @@ function loadInstruction() {
           fromLinkable: true, toLinkable: false
         }
       ),
-      // $(go.TextBlock, { font: "20px sans-serif" },
-      //   new go.Binding("text", "key")
-      // )
     );
-    // $(go.Panel, "Spot",
-    //   // register
-    //   $(go.Shape, "TriangleRight", {
-    //     fill: "lightred",
-    //     desiredSize: new go.Size(100, 150),
-    //     //initialDocumentSpot: go.Spot.TopCenter
-    //   }),
-    //   $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
-    //     new go.Binding("text", "key")
-    //   )
-    // ),
-    var imtemplate = $(go.Node, "Position",
-    $(go.Shape, "RoundedRectangle",
-      new go.Binding("fill", "color")),
-    $(go.TextBlock,
-      { margin: 8 },
-      { alignment: new go.Spot(0, 0) },
-      new go.Binding("text", "key"))
-  );
+    var datamemorytemplate =
+    // a spot is literally a spot on the shape
+    $(go.Node, "Spot",
+      $(go.Panel, "Spot",
+        // register
+        $(go.Shape, "RoundedRectangle", {
+          fill: "yellow",
+          desiredSize: new go.Size(100, 150),
+          //initialDocumentSpot: go.Spot.TopCenter
+        }),
+        $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+          new go.Binding("text", "key")
+        )
+      ),
+      // readreg1 left port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          // puts readreg1 top left
+          alignment: new go.Spot(0, 0, 0, 30),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+          portId: "addr", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          fromLinkable: false, toLinkable: true
+        },
+      ),
+      $(go.TextBlock, "address", { alignment: new go.Spot(0, 0, 5, 30), alignmentFocus: go.Spot.Left }),
+      // write data left port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          // puts write data top left
+          alignment: new go.Spot(0, 0, 0, 120),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+          portId: "writedata", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          fromLinkable: false, toLinkable: true
+        }
+      ),
+      $(go.TextBlock, "Write Data", { alignment: new go.Spot(0, 0, 5, 120), alignmentFocus: go.Spot.Left }),
+      // read data1 right port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "green",
+          alignment: new go.Spot(1, 0, 0, 60),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+          portId: "readdata", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          fromLinkable: true, toLinkable: false
+        }
+      ),
+      $(go.TextBlock, "Read Data", { alignment: new go.Spot(1, 0, -75, 60), alignmentFocus: go.Spot.Left }),
+    );
+
+    var signextendtemplate =
+    // a spot is literally a spot on the shape
+    $(go.Node, "Spot",
+      $(go.Panel, "Spot",
+        // register
+        $(go.Shape, "Ellipse", {
+          fill: "lightgreen",
+          desiredSize: new go.Size(75, 100),
+          //initialDocumentSpot: go.Spot.TopCenter
+        }),
+        $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+          new go.Binding("text", "key")
+        )
+      ),
+      // readreg1 left port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          // puts readreg1 top left
+          alignment: new go.Spot(0, 0, 0, 50),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+          portId: "sein", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          fromLinkable: false, toLinkable: true
+        },
+      ),
+      // read data1 right port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "green",
+          alignment: new go.Spot(1, 0, 0, 50),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+          portId: "seout", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          fromLinkable: true, toLinkable: false
+        }
+      ),
+    );
+    var imtemplate =     // a spot is literally a spot on the shape
+    $(go.Node, "Spot",
+      $(go.Panel, "Spot",
+        // register
+        $(go.Shape, "RoundedRectangle", {
+          fill: "grey",
+          desiredSize: new go.Size(100, 150),
+          //initialDocumentSpot: go.Spot.TopCenter
+        }),
+        $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+          new go.Binding("text", "key")
+        )
+      ),
+      // read data1 right port
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          alignment: new go.Spot(1, 0, 0, 45),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+          portId: "imfetch", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          fromLinkable: true, toLinkable: false
+        }
+      ),
+      // read data2 right port
+      // $(go.Shape, "Ellipse",
+      //   {
+      //     fill: "pink",
+      //     alignment: new go.Spot(1, 0, 0, 105),
+      //     desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+      //     portId: "readdata2", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+      //     fromLinkable: true, toLinkable: false
+      //   }
+      // ),
+    );
 
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
   templmap.add("register", registertemplate);
   templmap.add("im", imtemplate);
+  templmap.add("signextend", signextendtemplate);
+  templmap.add("datamemory", datamemorytemplate);
   myDiagram.nodeTemplateMap = templmap;
 
     myDiagram.model = new go.GraphLinksModel(
       [
         { key: "Register", category: "register" },
-        { key: "Beta", category: "im"},
+        { key: "IM", category: "im"},
+        {key: "SE", category: "signextend"},
+        {key: "DM", category: "datamemory"},
+        
       ],
       [
         // this makes the line before the user can. Maybe we call this for the solver
