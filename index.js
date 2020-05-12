@@ -303,13 +303,12 @@ function loadInstruction() {
       $(go.Shape, { toArrow: "Standard" },  new go.Binding("portId", "fromNode", function(n) { return n.portId; })
       .ofObject()));
       
-    function sameColor(fromnode, fromport, tonode, toport) {
-        console.log("" + fromport.portId + toport.portId);
+    function samePortId(fromnode, fromport, tonode, toport) {
         return fromport.portId === toport.portId;
         
       }
-      myDiagram.toolManager.linkingTool.linkValidation = sameColor;
-      myDiagram.toolManager.relinkingTool.linkValidation = sameColor;
+      myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+      myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
 
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
