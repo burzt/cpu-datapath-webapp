@@ -199,27 +199,6 @@ var imtemplate =     // a spot is literally a spot on the shape
         fromLinkable: true, toLinkable: false
       }
     ));
-// read data2 right port
-// $(go.Shape, "Ellipse",
-//   {
-//     fill: "pink",
-//     alignment: new go.Spot(1, 0, 0, 105),
-//     desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-//     portId: "readdata2", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
-//     fromLinkable: true, toLinkable: false
-//   }
-// ),
-// $(go.Panel, "Spot",
-//   // register
-//   $(go.Shape, "TriangleRight", {
-//     fill: "lightred",
-//     desiredSize: new go.Size(100, 150),
-//     //initialDocumentSpot: go.Spot.TopCenter
-//   }),
-//   $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
-//     new go.Binding("text", "key")
-//   )
-// ),
 var alutemplate =
   $(go.Node, "Spot",
     new go.Binding("location", "loc"),  // allows changing of node's position
