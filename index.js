@@ -1,9 +1,18 @@
 function loadInstruction() {
   var $ = go.GraphObject.make;
-  myDiagram = $(go.Diagram, "myDiagramDiv")
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
 
 
-  myDiagram.nodeTemplate =
+  var registertemplate =
     // a spot is literally a spot on the shape
     $(go.Node, "Spot",
       $(go.Panel, "Spot",
@@ -88,7 +97,7 @@ function loadInstruction() {
       // $(go.TextBlock, { font: "20px sans-serif" },
       //   new go.Binding("text", "key")
       // )
-    ),
+    );
     // $(go.Panel, "Spot",
     //   // register
     //   $(go.Shape, "TriangleRight", {
@@ -100,10 +109,25 @@ function loadInstruction() {
     //     new go.Binding("text", "key")
     //   )
     // ),
+    var imtemplate = $(go.Node, "Position",
+    $(go.Shape, "RoundedRectangle",
+      new go.Binding("fill", "color")),
+    $(go.TextBlock,
+      { margin: 8 },
+      { alignment: new go.Spot(0, 0) },
+      new go.Binding("text", "key"))
+  );
+
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  templmap.add("register", registertemplate);
+  templmap.add("im", imtemplate);
+  myDiagram.nodeTemplateMap = templmap;
+
     myDiagram.model = new go.GraphLinksModel(
       [
-        { key: "Register" },
-        { key: "Beta" },
+        { key: "Register", category: "register" },
+        { key: "Beta", category: "im"},
       ],
       [
         // this makes the line before the user can. Maybe we call this for the solver
@@ -116,7 +140,6 @@ function loadInstruction() {
   initialDocumentSpot: go.Spot.TopCenter; // may work, idk
 
   // enable Ctrl+Z to undo and Ctrl-Y to redo
-  myDiagram.undoManager.isEnabled = true;
 }
 
 function addInstruction() {
