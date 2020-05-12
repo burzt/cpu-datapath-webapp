@@ -69,7 +69,7 @@ var registertemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 45),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }, new go.Binding("portId", "readdata1")
     ),
@@ -80,7 +80,7 @@ var registertemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 105),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }, new go.Binding("portId", "readdata2")
     ),
@@ -131,7 +131,7 @@ var datamemorytemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 100),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }, new go.Binding("portId", "readdata")
     ),
@@ -153,29 +153,28 @@ var signextendtemplate =
         new go.Binding("text", "key")
       )
     ),
-    // readreg1 left port
+    // incoming sign extend
     $(go.Shape, "Ellipse",
       {
         fill: "pink",
-        // puts readreg1 top left
         alignment: new go.Spot(0, 0, 0, 50),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
         fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
       }, new go.Binding("portId", "sein")
     ),
-    // read data1 right port
+    // outgoing sign extend
     $(go.Shape, "Ellipse",
       {
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 50),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }, new go.Binding("portId", "seout")
     ),
   );
-var imtemplate =     // a spot is literally a spot on the shape
+var imtemplate =
   $(go.Node, "Spot",
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
@@ -195,7 +194,7 @@ var imtemplate =     // a spot is literally a spot on the shape
         fill: "pink",
         alignment: new go.Spot(1, 0, 0, 45),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }, new go.Binding("portId", "imfetch")
     ));
@@ -240,7 +239,7 @@ var alutemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 40),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false, fromMaxLinks: 1
       }, new go.Binding("portId", "result")
     ),
@@ -276,7 +275,7 @@ function loadInstruction() {
     // enable undo & redo
     "undoManager.isEnabled": true
   });
- 
+
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
   templmap.add("register", registertemplate);
@@ -288,27 +287,27 @@ function loadInstruction() {
 
   myDiagram.model = new go.GraphLinksModel(
     [
-      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: "1", readreg2: "0", writereg:"1", writedata:"5", readdata1: "2", readdata2: "0" },
-      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: "1"},
-      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: "1", seout: "3"},
-      { key: "DM", category: "datamemory",loc: new go.Point(-0, 50), addr: "4", writedata: "-1", readdata: "5"},
-      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: "2", alu2: "3", result: "4"},
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: "1", readreg2: "0", writereg: "1", writedata: "5", readdata1: "2", readdata2: "0" },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: "1" },
+      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: "1", seout: "3" },
+      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: "4", writedata: "-1", readdata: "5" },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: "2", alu2: "3", result: "4" },
     ],
   );
-   myDiagram.linkTemplate =
+  myDiagram.linkTemplate =
     $(go.Link,
       { routing: go.Link.AvoidsNodes, corner: 3 },
-      $(go.Shape,  new go.Binding("portId", "fromNode", function(n) { return n.portId; })
-      .ofObject()),
-      $(go.Shape, { toArrow: "Standard" },  new go.Binding("portId", "fromNode", function(n) { return n.portId; })
-      .ofObject()));
-      
-    function samePortId(fromnode, fromport, tonode, toport) {
-        return fromport.portId === toport.portId;
-        
-      }
-      myDiagram.toolManager.linkingTool.linkValidation = samePortId;
-      myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+      $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()),
+      $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()));
+
+  function samePortId(fromnode, fromport, tonode, toport) {
+    return fromport.portId === toport.portId;
+
+  }
+  myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+  myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
 
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
