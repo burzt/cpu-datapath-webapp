@@ -129,13 +129,13 @@ var datamemorytemplate =
     $(go.Shape, "Ellipse",
       {
         fill: "green",
-        alignment: new go.Spot(1, 0, 0, 60),
+        alignment: new go.Spot(1, 0, 0, 100),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
         portId: "readdata", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
       }
     ),
-    $(go.TextBlock, "Read Data", { alignment: new go.Spot(1, 0, -75, 60), alignmentFocus: go.Spot.Left }),
+    $(go.TextBlock, "Read Data", { alignment: new go.Spot(1, 0, -75, 100), alignmentFocus: go.Spot.Left }),
   );
 
 var signextendtemplate =
@@ -257,7 +257,8 @@ var alutemplate =
 
 
 function loadInstruction() {
-  var $ = go.GraphObject.make;
+  
+    
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
@@ -271,7 +272,12 @@ function loadInstruction() {
     // enable undo & redo
     "undoManager.isEnabled": true
   });
-
+  myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3 },
+      $(go.Shape),
+      $(go.Shape, { toArrow: "Standard" })
+    );
 
 
 
