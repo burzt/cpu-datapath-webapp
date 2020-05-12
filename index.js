@@ -31,6 +31,7 @@ function loadInstruction() {
         {
           fill: "pink",
           // puts readreg1 top left
+          //                  (x,y,x-offset,y-offset)
           alignment: new go.Spot(0, 0, 0, 30),
           desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
           portId: "readreg1", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
@@ -204,7 +205,7 @@ function loadInstruction() {
           portId: "imfetch", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
           fromLinkable: true, toLinkable: false
         }
-      ),
+      ));
       // read data2 right port
       // $(go.Shape, "Ellipse",
       //   {
@@ -215,6 +216,61 @@ function loadInstruction() {
       //     fromLinkable: true, toLinkable: false
       //   }
       // ),
+  // $(go.Panel, "Spot",
+  //   // register
+  //   $(go.Shape, "TriangleRight", {
+  //     fill: "lightred",
+  //     desiredSize: new go.Size(100, 150),
+  //     //initialDocumentSpot: go.Spot.TopCenter
+  //   }),
+  //   $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+  //     new go.Binding("text", "key")
+  //   )
+  // ),
+  var alutemplate =
+    $(go.Node, "Spot",
+      $(go.Panel, "Spot",
+        $(go.Shape, "TriangleRight", {
+          fill: "salmon",
+          desiredSize: new go.Size(80, 80),
+        }),
+        $(go.TextBlock,
+          { margin: 0 },
+          { alignmentFocus: go.Spot.Center },
+          { position: new go.Point(27, 35) }, //only way i could find to center text
+          new go.Binding("text", "key")
+        )
+      ),
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          // puts alu_op1 top left
+          alignment: new go.Spot(0, 0, 0, 30),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+          portId: "alu_op1", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          fromLinkable: false, toLinkable: true, toMaxLinks: 1
+        },
+      ),
+      $(go.Shape, "Ellipse",
+        {
+          fill: "pink",
+          // puts alu_op2 bottom left
+          alignment: new go.Spot(0, 0, 0, 60),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+          portId: "alu_op2", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+          fromLinkable: false, toLinkable: true, toMaxLinks: 1
+        },
+      ),
+      $(go.Shape, "Ellipse",
+        {
+          // result on right of triangle
+          fill: "green",
+          alignment: new go.Spot(1, 0, 0, 40),
+          desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+          portId: "alu_result", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+          fromLinkable: true, toLinkable: false, fromMaxLinks: 1
+        }
+      ),
     );
 
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
@@ -223,6 +279,7 @@ function loadInstruction() {
   templmap.add("im", imtemplate);
   templmap.add("signextend", signextendtemplate);
   templmap.add("datamemory", datamemorytemplate);
+  templmap.add("alu", alutemplate);
   myDiagram.nodeTemplateMap = templmap;
 
     myDiagram.model = new go.GraphLinksModel(
@@ -231,14 +288,13 @@ function loadInstruction() {
         { key: "IM", category: "im"},
         {key: "SE", category: "signextend"},
         {key: "DM", category: "datamemory"},
-        
+        { key: "ALU", category: "alu" },
       ],
       [
         // this makes the line before the user can. Maybe we call this for the solver
         // { from: "Register", to: "Beta", fromPort: "r", toPort: "l" }
       ]
     );
-
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
   initialDocumentSpot: go.Spot.TopCenter; // may work, idk
