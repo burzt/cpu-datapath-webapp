@@ -1,18 +1,5 @@
-function loadInstruction() {
-  var $ = go.GraphObject.make;
-  myDiagram = $(go.Diagram, "myDiagramDiv", {
-    // allow double-click in background to create a new node
-    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
-
-    // allow Ctrl-G to call groupSelection()
-    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
-
-    // enable undo & redo
-    "undoManager.isEnabled": true
-  });
-
-
-  var registertemplate =
+var $ = go.GraphObject.make;
+var registertemplate =
     // a spot is literally a spot on the shape
     $(go.Node, "Spot",
       $(go.Panel, "Spot",
@@ -273,6 +260,22 @@ function loadInstruction() {
       ),
     );
 
+function loadInstruction() {
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
+
+
+  
+
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
   templmap.add("register", registertemplate);
@@ -303,7 +306,6 @@ function loadInstruction() {
 }
 
 function addInstruction() {
-  var $ = go.GraphObject.make;
   myDiagram = $(go.Diagram, "myDiagramDiv")
 
   myDiagram.nodeTemplate =
