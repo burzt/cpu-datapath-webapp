@@ -272,15 +272,7 @@ function loadInstruction() {
     // enable undo & redo
     "undoManager.isEnabled": true
   });
-  myDiagram.linkTemplate =
-    $(go.Link,
-      { routing: go.Link.AvoidsNodes, corner: 3 },
-      $(go.Shape),
-      $(go.Shape, { toArrow: "Standard" })
-    );
-
-
-
+ 
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
   templmap.add("register", registertemplate);
@@ -293,12 +285,28 @@ function loadInstruction() {
   myDiagram.model = new go.GraphLinksModel(
     [
       { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: "1", readreg2: "0", writereg:"1", writedata:"5", readdata1: "2", readdata2: "0" },
-      { key: "IM", category: "im", loc: new go.Point(-600, 50) addr: "2"},
-      { key: "SE", category: "signextend", loc: new go.Point(-300, 250) },
-      { key: "DM", category: "datamemory",loc: new go.Point(-0, 50) },
-      { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: "1"},
+      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: "1", seout: "3"},
+      { key: "DM", category: "datamemory",loc: new go.Point(-0, 50), addr: "4", writedata: "-1", readdata: "5"},
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: "2", alu2: "3", result: "4"},
     ],
   );
+   myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3 },
+      $(go.Shape,  new go.Binding("portId", "fromNode", function(n) { return n.portId; })
+      .ofObject()),
+      $(go.Shape, { toArrow: "Standard" },  new go.Binding("portId", "fromNode", function(n) { return n.portId; })
+      .ofObject()));
+      
+    function sameColor(fromnode, fromport, tonode, toport) {
+        console.log("" + fromport.portId + toport.portId);
+        return fromport.portId === toport.portId;
+        
+      }
+      myDiagram.toolManager.linkingTool.linkValidation = sameColor;
+      myDiagram.toolManager.relinkingTool.linkValidation = sameColor;
+
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
   initialDocumentSpot: go.Spot.TopCenter; // may work, idk
