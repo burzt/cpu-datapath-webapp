@@ -22,9 +22,9 @@ var registertemplate =
         //                  (x,y,x-offset,y-offset)
         alignment: new go.Spot(0, 0, 0, 30),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "readreg1", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      },
+      }, new go.Binding("portId", "readreg1")
     ),
     $(go.TextBlock, "RR1", { alignment: new go.Spot(0, 0, 5, 30), alignmentFocus: go.Spot.Left }),
     // readreg2 left port
@@ -34,9 +34,9 @@ var registertemplate =
         // puts readreg2 top left
         alignment: new go.Spot(0, 0, 0, 60),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "readreg2", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }
+      }, new go.Binding("portId", "readreg2")
     ),
     $(go.TextBlock, "RR2", { alignment: new go.Spot(0, 0, 5, 60), alignmentFocus: go.Spot.Left }),
     // write register left port
@@ -46,9 +46,9 @@ var registertemplate =
         // puts write register top left
         alignment: new go.Spot(0, 0, 0, 90),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "writereg", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }
+      }, new go.Binding("portId", "writereg")
     ),
     $(go.TextBlock, "WR", { alignment: new go.Spot(0, 0, 5, 90), alignmentFocus: go.Spot.Left }),
     // write data left port
@@ -58,9 +58,9 @@ var registertemplate =
         // puts write data top left
         alignment: new go.Spot(0, 0, 0, 120),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "writedata", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }
+      }, new go.Binding("portId", "writedata")
     ),
     $(go.TextBlock, "WD", { alignment: new go.Spot(0, 0, 5, 120), alignmentFocus: go.Spot.Left }),
     // read data1 right port
@@ -69,9 +69,9 @@ var registertemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 45),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "readdata1", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
-      }
+      }, new go.Binding("portId", "readdata1")
     ),
     $(go.TextBlock, "RD1", { alignment: new go.Spot(1, 0, -5, 45), alignmentFocus: go.Spot.Right }),
     // read data2 right port
@@ -80,9 +80,9 @@ var registertemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 105),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "readdata2", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
-      }
+      }, new go.Binding("portId", "readdata2")
     ),
     $(go.TextBlock, "RD2", { alignment: new go.Spot(1, 0, -5, 105), alignmentFocus: go.Spot.Right }),
   );
@@ -108,9 +108,9 @@ var datamemorytemplate =
         // puts readreg1 top left
         alignment: new go.Spot(0, 0, 0, 30),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "addr", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      },
+      }, new go.Binding("portId", "addr")
     ),
     $(go.TextBlock, "address", { alignment: new go.Spot(0, 0, 5, 30), alignmentFocus: go.Spot.Left }),
     // write data left port
@@ -120,9 +120,9 @@ var datamemorytemplate =
         // puts write data top left
         alignment: new go.Spot(0, 0, 0, 120),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "writedata", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }
+      }, new go.Binding("portId", "writedata")
     ),
     $(go.TextBlock, "Write Data", { alignment: new go.Spot(0, 0, 5, 120), alignmentFocus: go.Spot.Left }),
     // read data1 right port
@@ -131,9 +131,9 @@ var datamemorytemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 100),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "readdata", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
-      }
+      }, new go.Binding("portId", "readdata")
     ),
     $(go.TextBlock, "Read Data", { alignment: new go.Spot(1, 0, -75, 100), alignmentFocus: go.Spot.Left }),
   );
@@ -160,9 +160,9 @@ var signextendtemplate =
         // puts readreg1 top left
         alignment: new go.Spot(0, 0, 0, 50),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "sein", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      },
+      }, new go.Binding("portId", "sein")
     ),
     // read data1 right port
     $(go.Shape, "Ellipse",
@@ -170,9 +170,9 @@ var signextendtemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 50),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "seout", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
-      }
+      }, new go.Binding("portId", "seout")
     ),
   );
 var imtemplate =     // a spot is literally a spot on the shape
@@ -195,9 +195,9 @@ var imtemplate =     // a spot is literally a spot on the shape
         fill: "pink",
         alignment: new go.Spot(1, 0, 0, 45),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "imfetch", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false
-      }
+      }, new go.Binding("portId", "imfetch")
     ));
 var alutemplate =
   $(go.Node, "Spot",
@@ -220,9 +220,9 @@ var alutemplate =
         // puts alu_op1 top left
         alignment: new go.Spot(0, 0, 0, 30),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "alu_op1", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true, toMaxLinks: 1
-      },
+      }, new go.Binding("portId", "alu1")
     ),
     $(go.Shape, "Ellipse",
       {
@@ -230,9 +230,9 @@ var alutemplate =
         // puts alu_op2 bottom left
         alignment: new go.Spot(0, 0, 0, 60),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
-        portId: "alu_op2", fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true, toMaxLinks: 1
-      },
+      }, new go.Binding("portId", "alu2")
     ),
     $(go.Shape, "Ellipse",
       {
@@ -240,9 +240,9 @@ var alutemplate =
         fill: "green",
         alignment: new go.Spot(1, 0, 0, 40),
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
-        portId: "alu_result", fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+        fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
         fromLinkable: true, toLinkable: false, fromMaxLinks: 1
-      }
+      }, new go.Binding("portId", "result")
     ),
   );
 
@@ -292,8 +292,8 @@ function loadInstruction() {
 
   myDiagram.model = new go.GraphLinksModel(
     [
-      { key: "Register", category: "register", loc: new go.Point(-400, 50) },
-      { key: "IM", category: "im", loc: new go.Point(-600, 50)},
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: "1", readreg2: "0", writereg:"1", writedata:"5", readdata1: "2", readdata2: "0" },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50) addr: "2"},
       { key: "SE", category: "signextend", loc: new go.Point(-300, 250) },
       { key: "DM", category: "datamemory",loc: new go.Point(-0, 50) },
       { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
