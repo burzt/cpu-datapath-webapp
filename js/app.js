@@ -518,7 +518,7 @@ function storeInstruction() {
 function branchInstruction() {
   document.getElementById('branch').onclick = function () {
     refreshDiagram();
-    addInstruction();
+    branchInstruction();
   };
 
   var $ = go.GraphObject.make;
@@ -538,22 +538,24 @@ function branchInstruction() {
 
   var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
   // for each of the node categories, specify which template to use
-  // templmap.add("register", registertemplate);
-  // templmap.add("im", imtemplate);
-  // templmap.add("signextend", signextendtemplate);
-  // templmap.add("datamemory", datamemorytemplate);
-  // templmap.add("alu", alutemplate);
-  // myDiagram.nodeTemplateMap = templmap;
+  templmap.add("register", registertemplate);
+  templmap.add("im", imtemplate);
+  templmap.add("signextend", signextendtemplate);
+  templmap.add("shiftleft", signextendtemplate);
+  templmap.add("alu", alutemplate);
+  templmap.add("add", alutemplate);
+  myDiagram.nodeTemplateMap = templmap;
 
-  // myDiagram.model = new go.GraphLinksModel(
-  //   [
-  //     { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, writedata: -1, readdata1: 2, readdata2: 3 },
-  //     { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
-  //     { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 4 },
-  //     { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 5, writedata: 3, readdata: -1 },
-  //     { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
-  //   ],
-  // );
+  myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, writedata: -1, readdata1: 2, readdata2: 3 },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 4 },
+      { key: "Shift Left", category: "shiftleft", loc: new go.Point(-100, -40), sein: 1, seout: 4 },
+      { key: "Add", category: "add", loc: new go.Point(50, -100), addr: 5, writedata: 3, readdata: -1 },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
+    ],
+  );
 
   myDiagram.linkTemplate =
     $(go.Link,
