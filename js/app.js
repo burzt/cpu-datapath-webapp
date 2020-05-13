@@ -814,13 +814,13 @@ function branchInstruction() {
 
   myDiagram.model = new go.GraphLinksModel(
     [
-      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 1, readreg2: 2, imfetch: 0 },
-      { key: "PC", category: "pc", loc: new go.Point(-450,-100), add1: 4, addres: 7},
-      { key: "IM", category: "im", loc: new go.Point(-600, 50), readreg1: 1, readreg2: 2, sein: 3, imfetch: 0 },
-      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 4 },
-      { key: "Shift Left", category: "shiftleft", loc: new go.Point(-100, -40), sein: 1, seout: 4 },
-      { key: "Add", category: "add", loc: new go.Point(50, -100), pcin: 7,  },
-      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, readdata1: 2, readdata2: 3 },
+      { key: "PC", category: "pc", loc: new go.Point(-450,-100), pcin: 7, pcout: 8},
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 0, seout: 4 },
+      { key: "Shift Left", category: "shiftleft", loc: new go.Point(-100, -40), shiftin: 4, shiftout: 5 },
+      { key: "Add", category: "add", loc: new go.Point(50, -100), add1: 8, add2: 5, addres: 7 },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 3, result: -1 },
     ],
   );
 
