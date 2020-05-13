@@ -186,6 +186,46 @@ var signextendtemplate =
       }, new go.Binding("portId", "seout")
     ),
   );
+  var programcountertemplate =
+  $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
+    new go.Binding("location", "loc"),  // allows changing of node's position
+    $(go.Panel, "Spot",
+      // register
+      $(go.Shape, "Rectangle", {
+        fill: "lightorange",
+        desiredSize: new go.Size(75, 100),
+        //initialDocumentSpot: go.Spot.TopCenter
+      }),
+      $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+        new go.Binding("text", "key")
+      )
+    ),
+    // incoming sign extend
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        alignment: new go.Spot(0, 0, 0, 50),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "pcin")
+    ),
+    // outgoing sign extend
+    $(go.Shape, "Ellipse",
+      {
+        fill: "green",
+        alignment: new go.Spot(1, 0, 0, 50),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: true, toLinkable: false
+      }, new go.Binding("portId", "pcout")
+    ),
+  );
 var imtemplate =
   $(go.Node, "Spot",
     {
