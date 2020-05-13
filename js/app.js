@@ -90,6 +90,119 @@ var registertemplate =
     ),
     $(go.TextBlock, "RD2", { alignment: new go.Spot(1, 0, -5, 105), alignmentFocus: go.Spot.Right }),
   );
+
+  var indexregistertemplate =
+  $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
+    new go.Binding("location", "loc"),  // allows changing of node's position
+    $(go.Panel, "Spot",
+      // register
+      $(go.Shape, "RoundedRectangle", {
+        fill: "lightblue",
+        desiredSize: new go.Size(100, 180),
+        //initialDocumentSpot: go.Spot.TopCenter
+      }),
+      $(go.TextBlock, { margin: 0, position: new go.Point(50, 90) },
+        new go.Binding("text", "key")    // for model
+      )
+    ),
+    // readreg1 left port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        // puts readreg1 top left
+        //                  (x,y,x-offset,y-offset)
+        alignment: new go.Spot(0, 0, 0, 30),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "readreg1")
+    ),
+    $(go.TextBlock, "RR1", { alignment: new go.Spot(0, 0, 5, 30), alignmentFocus: go.Spot.Left }),
+    // readreg2 left port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        // puts readreg2 top left
+        alignment: new go.Spot(0, 0, 0, 60),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "readreg2")
+    ),
+    $(go.TextBlock, "RR2", { alignment: new go.Spot(0, 0, 5, 60), alignmentFocus: go.Spot.Left }),
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        // puts readreg2 top left
+        alignment: new go.Spot(0, 0, 0, 90),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "readreg2")
+    ),
+    $(go.TextBlock, "RR3", { alignment: new go.Spot(0, 0, 5, 90), alignmentFocus: go.Spot.Left }),
+    // write register left port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        // puts write register top left
+        alignment: new go.Spot(0, 0, 0, 120),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "readreg3")
+    ),
+    $(go.TextBlock, "WR", { alignment: new go.Spot(0, 0, 5, 120), alignmentFocus: go.Spot.Left }),
+    // write data left port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        // puts write data top left
+        alignment: new go.Spot(0, 0, 0, 150),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "writedata")
+    ),
+    $(go.TextBlock, "WD", { alignment: new go.Spot(0, 0, 5, 150), alignmentFocus: go.Spot.Left }),
+    // read data1 right port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "green",
+        alignment: new go.Spot(1, 0, 0, 45),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: true, toLinkable: false
+      }, new go.Binding("portId", "readdata1")
+    ),
+    $(go.TextBlock, "RD1", { alignment: new go.Spot(1, 0, -5, 45), alignmentFocus: go.Spot.Right }),
+    // read data2 right port
+    $(go.Shape, "Ellipse",
+      {
+        fill: "green",
+        alignment: new go.Spot(1, 0, 0, 75),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: true, toLinkable: false
+      }, new go.Binding("portId", "readdata2")
+    ),
+    $(go.TextBlock, "RD2", { alignment: new go.Spot(1, 0, -5, 75), alignmentFocus: go.Spot.Right }),
+    $(go.Shape, "Ellipse",
+      {
+        fill: "green",
+        alignment: new go.Spot(1, 0, 0, 105),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: true, toLinkable: false
+      }, new go.Binding("portId", "readdata3")
+    ),
+    $(go.TextBlock, "RD3", { alignment: new go.Spot(1, 0, -5, 105), alignmentFocus: go.Spot.Right }),
+  );
 var datamemorytemplate =
   $(go.Node, "Spot",
     {
@@ -606,6 +719,72 @@ function storeInstruction() {
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
 }
+function indexedAddressingStoreInstruction() {
+  document.getElementById('indexedstore').onclick = function () {
+    refreshDiagram();
+    indexedAddressingStoreInstruction();
+  };
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    allowHorizontalScroll: false,
+    allowVerticalScroll: false,
+    allowZoom: false,
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
+
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  templmap.add("iregister", indexregistertemplate);
+  templmap.add("im", imtemplate);
+  templmap.add("signextend", signextendtemplate);
+  templmap.add("datamemory", datamemorytemplate);
+  templmap.add("alu", alutemplate);
+  myDiagram.nodeTemplateMap = templmap;
+
+  myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "Register", category: "iregister", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, readreg3: 2, writedata: -1, readdata1: 3, readdata2: 4, readdata3: 6 },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: -1, seout: -1 },
+      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 5, writedata: 6, readdata: -1 },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 3, alu2: 4, result: 5 },
+    ],
+  );
+  myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3 },
+      $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()),
+      $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()));
+
+  function samePortId(fromnode, fromport, tonode, toport) {
+    console.log()
+    if (fromport.portId == -1 || toport.portId == -1) {
+      return false;
+    }
+    if (fromport.portId == 0) {
+      return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId) || ((fromport.portId + 2) === toport.portId);
+    }
+    return (fromport.portId === toport.portId);
+  }
+  myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+  myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
+
+  myDiagram.model.linkFromPortIdProperty = "fromPort";
+  myDiagram.model.linkToPortIdProperty = "toPort";
+}
+
 
 function branchInstruction() {
   document.getElementById('branch').onclick = function () {
@@ -680,7 +859,7 @@ function indexedAddressingLoadInstruction() {
   // Allows clicking of page elements to refresh page and go to function.
   document.getElementById('indexedload').onclick = function () {
     refreshDiagram();
-    loadInstruction();
+    indexedAddressingLoadInstruction();
   };
   var $ = go.GraphObject.make;
   myDiagram = $(go.Diagram, "myDiagramDiv", {
