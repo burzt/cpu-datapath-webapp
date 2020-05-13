@@ -8,10 +8,10 @@ This project was built using go.js.
 
 
 ## Getting Started
-1. Go to http://cpudatapath.com in a browser. (phone browser do not display correctly)
-2. Click on any of the instructions listed in the nav bar.
-3. Click and drag from point to point from each component, if it is a valid connection for the instruction it will stay.
-4. Click a different instruction to load a new one, or the same one to reload the current instruction.
+1.  Go to http://cpudatapath.com in a browser. (phone browser do not display correctly)
+2.  Click on any of the instructions listed in the nav bar.
+3.  Click and drag from point to point from each component, if it is a valid connection for the instruction it will stay.
+4.  Click a different instruction to load a new one, or the same one to reload the current instruction.
 
 
 ## Features
