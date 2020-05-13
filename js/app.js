@@ -410,13 +410,35 @@ function storeInstruction() {
 
   myDiagram.model = new go.GraphLinksModel(
     [
-      { key: "Register", category: "register", loc: new go.Point(-400, 50) },
-      { key: "IM", category: "im", loc: new go.Point(-600, 50) },
-      { key: "SE", category: "signextend", loc: new go.Point(-300, 250) },
-      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50) },
-      { key: "ALU", category: "alu", loc: new go.Point(-200, 75) },
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, writedata: -1, readdata1: 2, readdata2: 3 },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: 1, seout: 4 },
+      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 5, writedata: 3, readdata: -1 },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
     ],
   );
+  myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3 },
+      $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()),
+      $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()));
+
+        function samePortId(fromnode, fromport, tonode, toport) {
+          console.log()
+          if(fromport.portId == -1 || toport.portId == -1) {
+            return false;
+          }
+          if(fromport.portId == 0)
+          {
+            return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);// || ((fromport.portId + 2) === toport.portId);
+          }
+          return (fromport.portId === toport.portId);
+        }
+  myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+  myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
 }
