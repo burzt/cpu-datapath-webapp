@@ -521,14 +521,12 @@ var alutemplate =
  * 
  */
 
-
 function loadInstruction() {
   // Allows clicking of page elements to refresh page and go to function.
   document.getElementById('load').onclick = function () {
     refreshDiagram();
     loadInstruction();
   };
-  var $ = go.GraphObject.make;
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
@@ -596,7 +594,7 @@ function addInstruction() {
     refreshDiagram();
     addInstruction();
   };
-  var $ = go.GraphObject.make;
+  
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
@@ -659,7 +657,7 @@ function storeInstruction() {
     refreshDiagram();
     storeInstruction();
   };
-  var $ = go.GraphObject.make;
+  
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
@@ -724,7 +722,7 @@ function indexedAddressingStoreInstruction() {
     refreshDiagram();
     indexedAddressingStoreInstruction();
   };
-  var $ = go.GraphObject.make;
+  
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
@@ -792,7 +790,7 @@ function branchInstruction() {
     branchInstruction();
   };
 
-  var $ = go.GraphObject.make;
+  
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     allowHorizontalScroll: false,
     allowVerticalScroll: false,
@@ -861,7 +859,7 @@ function indexedAddressingLoadInstruction() {
     refreshDiagram();
     indexedAddressingLoadInstruction();
   };
-  var $ = go.GraphObject.make;
+  
   myDiagram = $(go.Diagram, "myDiagramDiv", {
     // allow double-click in background to create a new node
     //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },

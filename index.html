@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body onload = "addInstruction(); refreshDiagram(); loadInstruction(); refreshDiagram(); storeInstruction(); refreshDiagram(); branchInstruction(); refreshDiagram(); indexedAddressingLoadInstruction(); refreshDiagram(); indexedAddressingStoreInstruction(); refreshDiagram()">
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,6 +23,7 @@
         <span class="icon-bar"></span>
       </button>
     </div>
+    <script type="text/javascript" src='js/app.js'></script>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav ">
           <li><a href="index.html"><i class="fa fa-fw fa-microchip"></i>CPU Datapath Simulator</a></li>
@@ -42,7 +43,7 @@
       </ul>
     </div>
   </nav>
-  <script type="text/javascript" src='js/app.js'></script>
+  
   <div class="container">
     <h3>How to use:</h3>
     <p>Click and drag to make connections between CPU components.
