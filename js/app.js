@@ -143,7 +143,7 @@ var registertemplate =
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
         fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }, new go.Binding("portId", "readreg2")
+      }, new go.Binding("portId", "readreg3")
     ),
     $(go.TextBlock, "RR3", { alignment: new go.Spot(0, 0, 5, 90), alignmentFocus: go.Spot.Left }),
     // write register left port
@@ -155,7 +155,7 @@ var registertemplate =
         desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
         fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
         fromLinkable: false, toLinkable: true
-      }, new go.Binding("portId", "readreg3")
+      }, new go.Binding("portId", "writereg")
     ),
     $(go.TextBlock, "WR", { alignment: new go.Spot(0, 0, 5, 120), alignmentFocus: go.Spot.Left }),
     // write data left port
