@@ -1,7 +1,11 @@
 var $ = go.GraphObject.make;
 var registertemplate =
-  // a spot is literally a spot on the shape
   $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
       // register
@@ -87,8 +91,12 @@ var registertemplate =
     $(go.TextBlock, "RD2", { alignment: new go.Spot(1, 0, -5, 105), alignmentFocus: go.Spot.Right }),
   );
 var datamemorytemplate =
-  // a spot is literally a spot on the shape
   $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
       // register
@@ -139,8 +147,12 @@ var datamemorytemplate =
   );
 
 var signextendtemplate =
-  // a spot is literally a spot on the shape
   $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
       // register
@@ -176,6 +188,11 @@ var signextendtemplate =
   );
 var imtemplate =
   $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
       // register
@@ -200,6 +217,11 @@ var imtemplate =
     ));
 var alutemplate =
   $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
     new go.Binding("location", "loc"),  // allows changing of node's position
     $(go.Panel, "Spot",
       $(go.Shape, "TriangleRight", {
@@ -272,6 +294,7 @@ function loadInstruction() {
     allowHorizontalScroll: false,
     allowVerticalScroll: false,
     allowZoom: false,
+
     // enable undo & redo
     "undoManager.isEnabled": true
   });
@@ -304,11 +327,10 @@ function loadInstruction() {
 
   function samePortId(fromnode, fromport, tonode, toport) {
     console.log()
-    if(fromport.portId == -1 || toport.portId == -1) {
+    if (fromport.portId == -1 || toport.portId == -1) {
       return false;
     }
-    if(fromport.portId == 0)
-    {
+    if (fromport.portId == 0) {
       return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);
     }
     return (fromport.portId === toport.portId);
@@ -365,11 +387,10 @@ function addInstruction() {
 
   function samePortId(fromnode, fromport, tonode, toport) {
     console.log()
-    if(fromport.portId == -1 || toport.portId == -1) {
+    if (fromport.portId == -1 || toport.portId == -1) {
       return false;
     }
-    if(fromport.portId == 0)
-    {
+    if (fromport.portId == 0) {
       return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId) || ((fromport.portId + 2) === toport.portId);
     }
     return (fromport.portId === toport.portId);
@@ -428,17 +449,16 @@ function storeInstruction() {
       $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
         .ofObject()));
 
-        function samePortId(fromnode, fromport, tonode, toport) {
-          console.log()
-          if(fromport.portId == -1 || toport.portId == -1) {
-            return false;
-          }
-          if(fromport.portId == 0)
-          {
-            return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);// || ((fromport.portId + 2) === toport.portId);
-          }
-          return (fromport.portId === toport.portId);
-        }
+  function samePortId(fromnode, fromport, tonode, toport) {
+    console.log()
+    if (fromport.portId == -1 || toport.portId == -1) {
+      return false;
+    }
+    if (fromport.portId == 0) {
+      return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);// || ((fromport.portId + 2) === toport.portId);
+    }
+    return (fromport.portId === toport.portId);
+  }
   myDiagram.toolManager.linkingTool.linkValidation = samePortId;
   myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
 
