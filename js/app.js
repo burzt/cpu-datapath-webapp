@@ -312,14 +312,14 @@ function loadInstruction() {
     [
       { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 1, readreg2: -1, writereg: 0, writedata: 5, readdata1: 2, readdata2: -1 },
       { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
-      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: 1, seout: 3 },
-      { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 4, writedata: -1, readdata: 5 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 3 },
+      { key: "DM", category: "datamemory", loc: new go.Point(0, 50), addr: 4, writedata: -1, readdata: 5 },
       { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 3, result: 4 },
     ],
   );
   myDiagram.linkTemplate =
     $(go.Link,
-      { routing: go.Link.AvoidsNodes, corner: 3 },
+      { routing: go.Link.AvoidsNodes, corner: 3, },
       $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
         .ofObject()),
       $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
@@ -337,6 +337,9 @@ function loadInstruction() {
   }
   myDiagram.toolManager.linkingTool.linkValidation = samePortId;
   myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
 
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
@@ -399,6 +402,9 @@ function addInstruction() {
   myDiagram.toolManager.linkingTool.linkValidation = samePortId;
   myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
 
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
+
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
 }
@@ -436,7 +442,7 @@ function storeInstruction() {
     [
       { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, writedata: -1, readdata1: 2, readdata2: 3 },
       { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
-      { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: 1, seout: 4 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 4 },
       { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 5, writedata: 3, readdata: -1 },
       { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
     ],
@@ -461,6 +467,9 @@ function storeInstruction() {
   }
   myDiagram.toolManager.linkingTool.linkValidation = samePortId;
   myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
 
   myDiagram.model.linkFromPortIdProperty = "fromPort";
   myDiagram.model.linkToPortIdProperty = "toPort";
