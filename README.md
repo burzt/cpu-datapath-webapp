@@ -28,5 +28,5 @@ This project was built using go.js.
 ## Acknowledgements
 - Big thanks to former TXST students Jacob M. Hope & Connor Reid for their [CPU Sim iOS App](https://github.com/JacobMHope/cpu-sim)
 - Go.js documentation can be found [here.](https://gojs.net/latest/index.html "GOjs Documentation")
-= Hosted on [Digital Ocean's Droplet-based Cloud](https://www.digitalocean.com/ "Digital Ocean Homepage")
+- Hosted on [Digital Ocean's Droplet-based Cloud](https://www.digitalocean.com/ "Digital Ocean Homepage")
 
