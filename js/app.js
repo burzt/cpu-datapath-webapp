@@ -588,7 +588,74 @@ function branchInstruction() {
 function refreshDiagram() {
   myDiagram.div = null;
 }
+function indexedAddressingLoadInstruction() {
+  // Allows clicking of page elements to refresh page and go to function.
+  document.getElementById('indexedload').onclick = function () {
+    refreshDiagram();
+    loadInstruction();
+  };
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
 
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    allowHorizontalScroll: false,
+    allowVerticalScroll: false,
+    allowZoom: false,
+
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
+
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  templmap.add("register", registertemplate);
+  templmap.add("im", imtemplate);
+  templmap.add("signextend", signextendtemplate);
+  templmap.add("datamemory", datamemorytemplate);
+  templmap.add("alu", alutemplate);
+  myDiagram.nodeTemplateMap = templmap;
+
+  myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 1, readreg2: 2, writereg: 0, writedata: 6, readdata1: 3, readdata2: 4 },
+      { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+      { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: -1, seout: -1 },
+      { key: "DM", category: "datamemory", loc: new go.Point(0, 50), addr: 5, writedata: -1, readdata: 6 },
+      { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 3, alu2: 4, result: 5 },
+    ],
+  );
+  myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3, },
+      $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()),
+      $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()));
+
+  function samePortId(fromnode, fromport, tonode, toport) {
+    console.log()
+    if (fromport.portId == -1 || toport.portId == -1) {
+      return false;
+    }
+    if (fromport.portId == 0) {
+      return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId) || ((fromport.portId + 2) === toport.portId);
+    }
+    return (fromport.portId === toport.portId);
+  }
+  myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+  myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
+
+  myDiagram.model.linkFromPortIdProperty = "fromPort";
+  myDiagram.model.linkToPortIdProperty = "toPort";
+  initialDocumentSpot: go.Spot.TopCenter; // may work, idk
+}
 
 /**
  * Notes: We can keep the model data separate the diagram's appearance.
