@@ -6,7 +6,8 @@ More information on CPU datapaths can be found here: https://www.cise.ufl.edu/~m
 Go.js documentation can be found here: https://gojs.net/latest/index.html
 
 ## Features
- - Add, Subtract, Load, Store and Branch instructions implemented with go.js.
+ - Add/Subtract, Load, Store and Branch instructions implemented with go.js.
+ - Advanced Instructions: Indexed Addressing: Load and Store implemented with go.js.
 
 ## Team
 | <a href="http://github.com/AaronElam" target="_blank">**Aaron Elam**</a> | <a href="http://github.com/DanielCarpenter" target="_blank">**Daniel Carpenter**</a> | <a href="https://github.com/zachboemer" target="_blank">**Zachary Boemer**</a> |
