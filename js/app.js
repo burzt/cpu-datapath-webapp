@@ -186,6 +186,46 @@ var signextendtemplate =
       }, new go.Binding("portId", "seout")
     ),
   );
+  var programcountertemplate =
+  $(go.Node, "Spot",
+    {
+      movable: false,
+      copyable: false,
+      deletable: false,
+    },
+    new go.Binding("location", "loc"),  // allows changing of node's position
+    $(go.Panel, "Spot",
+      // register
+      $(go.Shape, "Rectangle", {
+        fill: "lightorange",
+        desiredSize: new go.Size(75, 100),
+        //initialDocumentSpot: go.Spot.TopCenter
+      }),
+      $(go.TextBlock, { margin: 0, position: new go.Point(50, 75) },
+        new go.Binding("text", "key")
+      )
+    ),
+    // incoming sign extend
+    $(go.Shape, "Ellipse",
+      {
+        fill: "pink",
+        alignment: new go.Spot(0, 0, 0, 50),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Left,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: false, toLinkable: true
+      }, new go.Binding("portId", "pcin")
+    ),
+    // outgoing sign extend
+    $(go.Shape, "Ellipse",
+      {
+        fill: "green",
+        alignment: new go.Spot(1, 0, 0, 50),
+        desiredSize: new go.Size(10, 10), //alignment: go.Spot.Right,
+        fromSpot: go.Spot.Right, toSpot: go.Spot.Left,
+        fromLinkable: true, toLinkable: false
+      }, new go.Binding("portId", "pcout")
+    ),
+  );
 var imtemplate =
   $(go.Node, "Spot",
     {
@@ -447,6 +487,74 @@ function storeInstruction() {
       { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
     ],
   );
+  myDiagram.linkTemplate =
+    $(go.Link,
+      { routing: go.Link.AvoidsNodes, corner: 3 },
+      $(go.Shape, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()),
+      $(go.Shape, { toArrow: "Standard" }, new go.Binding("portId", "fromNode", function (n) { return n.portId; })
+        .ofObject()));
+
+  function samePortId(fromnode, fromport, tonode, toport) {
+    console.log()
+    if (fromport.portId == -1 || toport.portId == -1) {
+      return false;
+    }
+    if (fromport.portId == 0) {
+      return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);// || ((fromport.portId + 2) === toport.portId);
+    }
+    return (fromport.portId === toport.portId);
+  }
+  myDiagram.toolManager.linkingTool.linkValidation = samePortId;
+  myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
+
+  // Adjust sensitivity of link snapping
+  myDiagram.toolManager.linkingTool.portGravity = 5;
+
+  myDiagram.model.linkFromPortIdProperty = "fromPort";
+  myDiagram.model.linkToPortIdProperty = "toPort";
+}
+
+function branchInstruction() {
+  document.getElementById('branch').onclick = function () {
+    refreshDiagram();
+    addInstruction();
+  };
+
+  var $ = go.GraphObject.make;
+  myDiagram = $(go.Diagram, "myDiagramDiv", {
+    // allow double-click in background to create a new node
+    //"clickCreatingTool.archetypeNodeData": { text: "Node", color: "white" },
+
+    // allow Ctrl-G to call groupSelection()
+    //"commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
+
+    allowHorizontalScroll: false,
+    allowVerticalScroll: false,
+    allowZoom: false,
+    // enable undo & redo
+    "undoManager.isEnabled": true
+  });
+
+  var templmap = new go.Map(); // In TypeScript you could write: new go.Map<string, go.Node>();
+  // for each of the node categories, specify which template to use
+  // templmap.add("register", registertemplate);
+  // templmap.add("im", imtemplate);
+  // templmap.add("signextend", signextendtemplate);
+  // templmap.add("datamemory", datamemorytemplate);
+  // templmap.add("alu", alutemplate);
+  // myDiagram.nodeTemplateMap = templmap;
+
+  // myDiagram.model = new go.GraphLinksModel(
+  //   [
+  //     { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 0, readreg2: 1, writereg: -1, writedata: -1, readdata1: 2, readdata2: 3 },
+  //     { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
+  //     { key: "SE", category: "signextend", loc: new go.Point(-310, 250), sein: 1, seout: 4 },
+  //     { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 5, writedata: 3, readdata: -1 },
+  //     { key: "ALU", category: "alu", loc: new go.Point(-200, 75), alu1: 2, alu2: 4, result: 5 },
+  //   ],
+  // );
+
   myDiagram.linkTemplate =
     $(go.Link,
       { routing: go.Link.AvoidsNodes, corner: 3 },
