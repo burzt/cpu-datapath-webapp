@@ -287,7 +287,7 @@ function loadInstruction() {
 
   myDiagram.model = new go.GraphLinksModel(
     [
-      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 1, readreg2: -1, writereg: 0, writedata: 5, readdata1: 2, readdata2: 0 },
+      { key: "Register", category: "register", loc: new go.Point(-400, 50), readreg1: 1, readreg2: -1, writereg: 0, writedata: 5, readdata1: 2, readdata2: -1 },
       { key: "IM", category: "im", loc: new go.Point(-600, 50), imfetch: 0 },
       { key: "SE", category: "signextend", loc: new go.Point(-300, 250), sein: 1, seout: 3 },
       { key: "DM", category: "datamemory", loc: new go.Point(-0, 50), addr: 4, writedata: -1, readdata: 5 },
@@ -307,8 +307,11 @@ function loadInstruction() {
     if(fromport.portId == -1 || toport.portId == -1) {
       return false;
     }
-    return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);
-
+    if(fromport.portId == 0)
+    {
+      return (fromport.portId === toport.portId) || ((fromport.portId + 1) === toport.portId);
+    }
+    return (fromport.portId === toport.portId);
   }
   myDiagram.toolManager.linkingTool.linkValidation = samePortId;
   myDiagram.toolManager.relinkingTool.linkValidation = samePortId;
