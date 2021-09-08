@@ -6,6 +6,8 @@ More information on CPU datapaths can be found here: https://www.cise.ufl.edu/~m
 This project was built using go.js.
 
 
+![Product Gif](product.gif?raw=true "Product Gif")
+
 
 ## Getting Started
 1.  Go to http://cpudatapath.com in a browser. (phone browser does not display correctly)
