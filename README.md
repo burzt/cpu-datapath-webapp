@@ -1,5 +1,5 @@
 # CPU Datapath Web App
-The CPU Datapath Web App is an open-source graphical simulator of the path that data follows within a CPU. Available at http://cpudatapath.com. 
+The CPU Datapath Web App is an open-source graphical simulator of the path that data follows within a CPU. Available at [burzt.github.io/cpu-datapath-webapp](https://burzt.github.io/cpu-datapath-webapp/). 
 
 More information on CPU datapaths can be found here: https://www.cise.ufl.edu/~mssz/CompOrg/CDA-proc.html
 
